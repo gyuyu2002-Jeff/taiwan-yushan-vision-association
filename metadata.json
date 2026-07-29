@@ -1,0 +1,6 @@
+{
+  "name": "台灣玉山創見會 - 官方網站",
+  "description": "台灣玉山創見會官方網站，展示本會簡介、任務展望、三大宗旨與六大信念、會旗及組織架構，提供視覺優化與行動裝置響應式體驗。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
