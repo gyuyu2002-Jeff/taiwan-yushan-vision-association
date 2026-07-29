@@ -1,27 +1,19 @@
 import React from 'react';
 
-const FIREFLIES = [
-  { top: '9%', left: '8%', size: 4, duration: 7.8, delay: -1.2 },
-  { top: '15%', left: '29%', size: 3, duration: 9.4, delay: -5.1 },
-  { top: '11%', left: '66%', size: 5, duration: 11.2, delay: -3.7 },
-  { top: '21%', left: '88%', size: 3, duration: 8.6, delay: -6.4 },
-  { top: '32%', left: '16%', size: 5, duration: 10.7, delay: -8.2 },
-  { top: '38%', left: '44%', size: 3, duration: 7.3, delay: -2.8 },
-  { top: '29%', left: '73%', size: 4, duration: 12.1, delay: -7.6 },
-  { top: '47%', left: '93%', size: 5, duration: 9.8, delay: -4.3 },
-  { top: '55%', left: '7%', size: 3, duration: 11.7, delay: -9.4 },
-  { top: '61%', left: '25%', size: 4, duration: 8.9, delay: -3.1 },
-  { top: '53%', left: '57%', size: 5, duration: 10.2, delay: -6.8 },
-  { top: '67%', left: '79%', size: 3, duration: 7.6, delay: -1.9 },
-  { top: '76%', left: '13%', size: 5, duration: 12.4, delay: -5.9 },
-  { top: '83%', left: '38%', size: 3, duration: 9.1, delay: -7.1 },
-  { top: '74%', left: '63%', size: 4, duration: 10.9, delay: -2.3 },
-  { top: '88%', left: '89%', size: 5, duration: 8.2, delay: -4.9 },
-];
+const FIREFLIES = Array.from({ length: 36 }, (_, index) => ({
+  top: `${3 + ((index * 37 + 11) % 94)}%`,
+  left: `${3 + ((index * 53 + 7) % 94)}%`,
+  size: 2 + ((index * 7) % 4),
+  duration: 3.4 + ((index * 13) % 42) / 10,
+  delay: -((index * 17) % 70) / 10,
+  driftX: `${((index * 19) % 31) - 15}px`,
+  driftY: `${((index * 23) % 25) - 12}px`,
+}));
 
 export const AnimatedBackground: React.FC = () => {
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none">
+    <>
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none">
       {/* Dynamic Gradient Halos */}
       <div
         className="absolute -top-[10%] -left-[10%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full blur-[120px] opacity-25 animate-pulse"
@@ -43,22 +35,6 @@ export const AnimatedBackground: React.FC = () => {
         }}
       />
 
-      {/* Fireflies with varied positions and unsynchronised glow cycles */}
-      {FIREFLIES.map((firefly, index) => (
-        <span
-          key={index}
-          className="firefly"
-          style={{
-            top: firefly.top,
-            left: firefly.left,
-            width: firefly.size,
-            height: firefly.size,
-            animationDuration: `${firefly.duration}s`,
-            animationDelay: `${firefly.delay}s`,
-          }}
-        />
-      ))}
-
       {/* Subtle Mountain Silhouette SVG vector in bottom background */}
       <svg
         className="absolute bottom-0 left-0 w-full opacity-[0.035] text-[#3D4F3F]"
@@ -76,6 +52,29 @@ export const AnimatedBackground: React.FC = () => {
       >
         <path d="M0,160L80,181.3C160,203,320,245,480,240C640,235,800,181,960,170.7C1120,160,1280,192,1360,208L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z" />
       </svg>
-    </div>
+      </div>
+
+      <div
+        className="fixed inset-0 z-20 overflow-hidden pointer-events-none select-none"
+        aria-hidden="true"
+      >
+        {FIREFLIES.map((firefly, index) => (
+          <span
+            key={index}
+            className={`firefly ${index % 5 === 0 ? 'firefly--green' : ''}`}
+            style={{
+              top: firefly.top,
+              left: firefly.left,
+              width: firefly.size,
+              height: firefly.size,
+              animationDuration: `${firefly.duration}s`,
+              animationDelay: `${firefly.delay}s`,
+              '--firefly-x': firefly.driftX,
+              '--firefly-y': firefly.driftY,
+            } as React.CSSProperties}
+          />
+        ))}
+      </div>
+    </>
   );
 };
