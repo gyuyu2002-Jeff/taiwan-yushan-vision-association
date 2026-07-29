@@ -1,6 +1,6 @@
 import { MenuItem, PurposeItem, BeliefItem, GalleryItem, OrganizationGroup } from '../types';
 
-export const YUSHAN_HERO_IMAGE = `${import.meta.env.BASE_URL}yushan_sunset.jpg`;
+export const YUSHAN_HERO_IMAGE = 'https://upload.wikimedia.org/wikipedia/commons/8/82/YushanSunrise.jpg';
 
 export const SITE_INFO = {
   title: '台灣玉山創見會',

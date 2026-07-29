@@ -108,6 +108,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </button>
           </div>
         </div>
+        <p className="mt-4 text-center text-[10px] text-white/40">
+          首頁玉山照片：
+          <a href="https://commons.wikimedia.org/wiki/File:YushanSunrise.jpg" target="_blank" rel="noopener noreferrer" className="underline hover:text-white/70">
+            Prince Roy
+          </a>
+          （<a href="https://creativecommons.org/licenses/by/2.0" target="_blank" rel="noopener noreferrer" className="underline hover:text-white/70">CC BY 2.0</a>）
+        </p>
       </div>
     </footer>
   );
