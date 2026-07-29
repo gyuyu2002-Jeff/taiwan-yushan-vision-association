@@ -17,22 +17,22 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="relative overflow-hidden bg-[#E7EBDD] text-[#1C1C1C] p-8 sm:p-12 shadow-2xl border border-[#3D4F3F]/15"
+        className="relative overflow-hidden bg-[#3D4F3F] text-[#F8F6F2] p-8 sm:p-12 shadow-2xl border border-black/10"
         style={{
           clipPath: 'polygon(0 0, 100% 0, 100% 92%, 0 100%)',
         }}
       >
         <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 bg-white/70 backdrop-blur-md px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#3D4F3F] border border-[#3D4F3F]/20">
-            <BookOpen className="w-3.5 h-3.5 text-emerald-700" />
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#F8F6F2] border border-white/20">
+            <BookOpen className="w-3.5 h-3.5 text-emerald-300" />
             <span>創會歷史與成立宗旨</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight leading-tight font-serif-tc text-[#1C1C1C]">
+          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight leading-tight font-serif-tc text-white">
             本會簡介
           </h1>
 
-          <p className="text-base sm:text-lg text-[#1C1C1C]/75 leading-relaxed font-normal">
+          <p className="text-base sm:text-lg text-white/80 leading-relaxed font-normal">
             台灣玉山創見會於 {ABOUT_STORY.foundingYear} 由 {ABOUT_STORY.founderName} 發起成立，以玉山聖山精神為依歸，展現高瞻遠矚、生態保育與文創商機。
           </p>
         </div>

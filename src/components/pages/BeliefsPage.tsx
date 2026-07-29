@@ -46,7 +46,7 @@ export const BeliefsPage: React.FC<BeliefsPageProps> = ({ onNavigate }) => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="relative overflow-hidden bg-[#1C1C1C] text-[#F8F6F2] p-8 sm:p-12 shadow-2xl border border-black/10"
+        className="relative overflow-hidden bg-[#3D4F3F] text-[#F8F6F2] p-8 sm:p-12 shadow-2xl border border-black/10"
         style={{
           clipPath: 'polygon(0 0, 100% 0, 100% 92%, 0 100%)',
         }}
