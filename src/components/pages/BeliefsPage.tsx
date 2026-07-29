@@ -169,10 +169,7 @@ export const BeliefsPage: React.FC<BeliefsPageProps> = ({ onNavigate }) => {
               className="editorial-card p-6 hover:border-[#3D4F3F] hover:-translate-y-1 hover:shadow-lg transition-all duration-300 border relative notranslate flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="w-9 h-9 font-serif font-bold text-sm flex items-center justify-center bg-[#3D4F3F] text-white">
-                    {belief.numeral}
-                  </span>
+                <div className="flex items-center justify-end mb-4">
                   <div className="p-2 bg-[#F8F6F2] text-[#3D4F3F]">
                     {BELIEF_ICONS[belief.icon]}
                   </div>
