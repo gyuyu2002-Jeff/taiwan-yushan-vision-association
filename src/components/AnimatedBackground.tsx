@@ -1,16 +1,131 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
-const FIREFLIES = Array.from({ length: 36 }, (_, index) => ({
-  top: `${3 + ((index * 37 + 11) % 94)}%`,
-  left: `${3 + ((index * 53 + 7) % 94)}%`,
-  size: 2 + ((index * 7) % 4),
-  duration: 3.4 + ((index * 13) % 42) / 10,
-  delay: -((index * 17) % 70) / 10,
-  driftX: `${((index * 19) % 31) - 15}px`,
-  driftY: `${((index * 23) % 25) - 12}px`,
-}));
+type Firefly = {
+  x: number;
+  y: number;
+  angle: number;
+  targetAngle: number;
+  turnSeed: number;
+  speed: number;
+  size: number;
+  depth: number;
+  pulseRate: number;
+  phase: number;
+  color: string;
+  nextTurn: number;
+};
+
+const FIREFLY_COLORS = ['#F1D58A', '#B8DFA4'];
 
 export const AnimatedBackground: React.FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext('2d');
+    if (!canvas || !context) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let width = 0;
+    let height = 0;
+    let animationFrame = 0;
+    let previousTime = performance.now();
+    const fireflies: Firefly[] = [];
+
+    const createFirefly = (): Firefly => {
+      const angle = Math.random() * Math.PI * 2;
+      return {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        angle,
+        targetAngle: angle,
+        turnSeed: Math.random() * Math.PI * 2,
+        speed: 38 + Math.random() * 54,
+        size: 1.15 + Math.random() * 0.65,
+        depth: 0.72 + Math.random() * 0.56,
+        pulseRate: 1.2 + Math.random() * 2.8,
+        phase: Math.random() * Math.PI * 2,
+        color: FIREFLY_COLORS[Math.random() > 0.22 ? 0 : 1],
+        nextTurn: 0,
+      };
+    };
+
+    const resize = () => {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+      const targetCount = width < 640 ? 45 : 70;
+      while (fireflies.length < targetCount) fireflies.push(createFirefly());
+      if (fireflies.length > targetCount) fireflies.length = targetCount;
+    };
+
+    const draw = (time: number) => {
+      const elapsed = Math.min((time - previousTime) / 1000, 0.05);
+      previousTime = time;
+      context.clearRect(0, 0, width, height);
+
+      fireflies.forEach((firefly) => {
+        const movement = reduceMotion ? 0.08 : 1.25;
+        if (time >= firefly.nextTurn) {
+          firefly.targetAngle = Math.random() * Math.PI * 2;
+          firefly.nextTurn = time + 650 + Math.random() * 1850;
+        }
+
+        const angleDifference = Math.atan2(
+          Math.sin(firefly.targetAngle - firefly.angle),
+          Math.cos(firefly.targetAngle - firefly.angle),
+        );
+        firefly.angle += angleDifference * elapsed * 1.45;
+        firefly.angle += Math.sin(time * 0.0014 + firefly.turnSeed) * elapsed * 0.65;
+
+        const wave = Math.max(0, Math.sin(time * 0.001 * firefly.pulseRate + firefly.phase));
+        const flash = Math.pow(wave, 9);
+        const dart = 1 + flash * 0.65;
+        firefly.x += Math.cos(firefly.angle) * firefly.speed * firefly.depth * movement * dart * elapsed;
+        firefly.y += Math.sin(firefly.angle) * firefly.speed * firefly.depth * movement * dart * elapsed;
+        firefly.y += Math.sin(time * 0.004 + firefly.turnSeed) * 11 * movement * elapsed;
+
+        const margin = 18;
+        if (firefly.x < -margin) firefly.x = width + margin;
+        if (firefly.x > width + margin) firefly.x = -margin;
+        if (firefly.y < -margin) firefly.y = height + margin;
+        if (firefly.y > height + margin) firefly.y = -margin;
+
+        const displayY = firefly.y + Math.sin(time * 0.0032 + firefly.phase) * 7 * firefly.depth;
+        context.save();
+        context.globalAlpha = 0.1 + flash * 0.9;
+        context.fillStyle = firefly.color;
+        context.shadowColor = firefly.color;
+        context.shadowBlur = 5 + flash * 22;
+        context.beginPath();
+        context.arc(
+          firefly.x,
+          displayY,
+          firefly.size * (1.3 + flash * 1.25),
+          0,
+          Math.PI * 2,
+        );
+        context.fill();
+        context.restore();
+      });
+
+      animationFrame = window.requestAnimationFrame(draw);
+    };
+
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+    animationFrame = window.requestAnimationFrame(draw);
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      window.cancelAnimationFrame(animationFrame);
+    };
+  }, []);
+
   return (
     <>
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none">
@@ -54,27 +169,11 @@ export const AnimatedBackground: React.FC = () => {
       </svg>
       </div>
 
-      <div
-        className="fixed inset-0 z-20 overflow-hidden pointer-events-none select-none"
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 z-20 h-full w-full pointer-events-none select-none"
         aria-hidden="true"
-      >
-        {FIREFLIES.map((firefly, index) => (
-          <span
-            key={index}
-            className={`firefly ${index % 5 === 0 ? 'firefly--green' : ''}`}
-            style={{
-              top: firefly.top,
-              left: firefly.left,
-              width: firefly.size,
-              height: firefly.size,
-              animationDuration: `${firefly.duration}s`,
-              animationDelay: `${firefly.delay}s`,
-              '--firefly-x': firefly.driftX,
-              '--firefly-y': firefly.driftY,
-            } as React.CSSProperties}
-          />
-        ))}
-      </div>
+      />
     </>
   );
 };
