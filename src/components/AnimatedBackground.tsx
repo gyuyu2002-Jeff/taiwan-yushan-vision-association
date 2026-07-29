@@ -1,22 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+
+const FIREFLIES = [
+  { top: '9%', left: '8%', size: 4, duration: 7.8, delay: -1.2 },
+  { top: '15%', left: '29%', size: 3, duration: 9.4, delay: -5.1 },
+  { top: '11%', left: '66%', size: 5, duration: 11.2, delay: -3.7 },
+  { top: '21%', left: '88%', size: 3, duration: 8.6, delay: -6.4 },
+  { top: '32%', left: '16%', size: 5, duration: 10.7, delay: -8.2 },
+  { top: '38%', left: '44%', size: 3, duration: 7.3, delay: -2.8 },
+  { top: '29%', left: '73%', size: 4, duration: 12.1, delay: -7.6 },
+  { top: '47%', left: '93%', size: 5, duration: 9.8, delay: -4.3 },
+  { top: '55%', left: '7%', size: 3, duration: 11.7, delay: -9.4 },
+  { top: '61%', left: '25%', size: 4, duration: 8.9, delay: -3.1 },
+  { top: '53%', left: '57%', size: 5, duration: 10.2, delay: -6.8 },
+  { top: '67%', left: '79%', size: 3, duration: 7.6, delay: -1.9 },
+  { top: '76%', left: '13%', size: 5, duration: 12.4, delay: -5.9 },
+  { top: '83%', left: '38%', size: 3, duration: 9.1, delay: -7.1 },
+  { top: '74%', left: '63%', size: 4, duration: 10.9, delay: -2.3 },
+  { top: '88%', left: '89%', size: 5, duration: 8.2, delay: -4.9 },
+];
 
 export const AnimatedBackground: React.FC = () => {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth) * 100,
-        y: (e.clientY / window.innerHeight) * 100,
-      });
-      if (!isHovered) setIsHovered(true);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [isHovered]);
-
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none">
       {/* Dynamic Gradient Halos */}
@@ -31,8 +34,6 @@ export const AnimatedBackground: React.FC = () => {
         className="absolute top-[40%] -right-[10%] w-[45vw] h-[45vw] max-w-[550px] max-h-[550px] rounded-full blur-[140px] opacity-20"
         style={{
           background: 'radial-gradient(circle, rgba(197,160,89,0.3) 0%, rgba(248,246,242,0) 70%)',
-          transform: `translate(${mousePos.x * 0.05}px, ${mousePos.y * 0.05}px)`,
-          transition: 'transform 0.8s ease-out',
         }}
       />
       <div
@@ -42,18 +43,21 @@ export const AnimatedBackground: React.FC = () => {
         }}
       />
 
-      {/* Mouse Follow Glow */}
-      {isHovered && (
-        <div
-          className="absolute w-[350px] h-[350px] rounded-full blur-[80px] opacity-15 transition-opacity duration-500"
+      {/* Fireflies with varied positions and unsynchronised glow cycles */}
+      {FIREFLIES.map((firefly, index) => (
+        <span
+          key={index}
+          className="firefly"
           style={{
-            left: `${mousePos.x}%`,
-            top: `${mousePos.y}%`,
-            transform: 'translate(-50%, -50%)',
-            background: 'radial-gradient(circle, rgba(61,79,63,0.6) 0%, rgba(212,175,55,0.2) 50%, transparent 80%)',
+            top: firefly.top,
+            left: firefly.left,
+            width: firefly.size,
+            height: firefly.size,
+            animationDuration: `${firefly.duration}s`,
+            animationDelay: `${firefly.delay}s`,
           }}
         />
-      )}
+      ))}
 
       {/* Subtle Mountain Silhouette SVG vector in bottom background */}
       <svg
@@ -72,11 +76,6 @@ export const AnimatedBackground: React.FC = () => {
       >
         <path d="M0,160L80,181.3C160,203,320,245,480,240C640,235,800,181,960,170.7C1120,160,1280,192,1360,208L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z" />
       </svg>
-
-      {/* Floating Particle Orbs */}
-      <div className="absolute top-1/4 left-10 w-2 h-2 rounded-full bg-[#3D4F3F]/20 animate-ping duration-[3000ms]" />
-      <div className="absolute top-2/3 right-12 w-3 h-3 rounded-full bg-[#C5A059]/25 animate-pulse duration-[4000ms]" />
-      <div className="absolute top-1/2 left-1/3 w-1.5 h-1.5 rounded-full bg-[#3D4F3F]/30 animate-ping duration-[5000ms]" />
     </div>
   );
 };

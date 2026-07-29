@@ -13,7 +13,6 @@ import { DeviceSimulator } from './components/DeviceSimulator';
 import { AnimatedBackground } from './components/AnimatedBackground';
 import { FloatingTools } from './components/FloatingTools';
 import { Preloader } from './components/Preloader';
-import { MouseMountain } from './components/MouseMountain';
 
 export default function App() {
   const [activePage, setActivePage] = useState<PageId>('home'); // Default to home page
@@ -86,7 +85,6 @@ export default function App() {
     <>
       {/* Intro Preloader / Splash Screen */}
       {showPreloader && <Preloader onComplete={handlePreloaderComplete} />}
-      <MouseMountain />
 
       <DeviceSimulator viewMode={viewMode} onViewModeChange={setViewMode}>
         <div className="relative min-h-screen flex flex-col bg-[#F8F6F2] text-[#1C1C1C] font-sans selection:bg-[#3D4F3F] selection:text-white overflow-x-hidden">
