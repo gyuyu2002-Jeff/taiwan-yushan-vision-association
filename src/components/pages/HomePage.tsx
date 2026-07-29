@@ -9,6 +9,8 @@ import { PageId } from '../../types';
 import { SITE_INFO, GALLERY_ITEMS, YUSHAN_HERO_IMAGE } from '../../data/content';
 import { NextPageBanner } from '../NextPageBanner';
 
+const GALLERY_LABELS = ['集會活動', '總會活動', '環保生態', '會務餐會', '商機交流', '機關拜訪'];
+
 interface HomePageProps {
   onNavigate: (pageId: PageId) => void;
 }
@@ -137,7 +139,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 </div>
               </div>
               <span className="absolute top-3 left-3 bg-[#3D4F3F] text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 shadow-xs">
-                {item.category}
+                {GALLERY_LABELS[index]}
               </span>
             </motion.div>
           ))}
