@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'motion/react';
 import {
   HeartHandshake,
@@ -13,10 +13,8 @@ import {
   Handshake,
   Heart,
   CheckCircle2,
-  Copy,
-  Check,
 } from 'lucide-react';
-import { PURPOSES, BELIEFS, SITE_INFO } from '../../data/content';
+import { PURPOSES, BELIEFS } from '../../data/content';
 import { PageId } from '../../types';
 import { NextPageBanner } from '../NextPageBanner';
 
@@ -41,14 +39,6 @@ interface BeliefsPageProps {
 }
 
 export const BeliefsPage: React.FC<BeliefsPageProps> = ({ onNavigate }) => {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(SITE_INFO.originalUrl);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
     <div className="space-y-12 sm:space-y-16">
       {/* Page Header Banner */}
@@ -75,15 +65,6 @@ export const BeliefsPage: React.FC<BeliefsPageProps> = ({ onNavigate }) => {
             以「認同台灣、環保生態、文創商機、文化推廣」為核心宗旨，貫徹六大立會信念，凝聚社會共識，弘揚聖山玉山獨立崇高精神。
           </p>
 
-          <div className="pt-2 flex flex-wrap items-center gap-3">
-            <button
-              onClick={handleCopyLink}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-[#3D4F3F] text-white text-xs font-bold uppercase tracking-wider transition-all border border-white/20 active:scale-95"
-            >
-              {copied ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
-              <span>{copied ? '已複製原本網頁網址' : '分享原本網頁網址'}</span>
-            </button>
-          </div>
         </div>
       </motion.section>
 
@@ -229,4 +210,3 @@ export const BeliefsPage: React.FC<BeliefsPageProps> = ({ onNavigate }) => {
     </div>
   );
 };
-

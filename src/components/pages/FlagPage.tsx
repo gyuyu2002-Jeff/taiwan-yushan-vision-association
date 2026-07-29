@@ -46,13 +46,13 @@ export const FlagPage: React.FC<FlagPageProps> = ({ onNavigate }) => {
         transition={{ duration: 0.7 }}
         className="editorial-card p-6 sm:p-10 space-y-8"
       >
-        <div className="max-w-3xl mx-auto space-y-8 text-center">
+        <div className="max-w-5xl mx-auto space-y-8 text-center">
           <div className="space-y-2">
             <span className="editorial-badge text-[#3D4F3F]">OFFICIAL EMBLEM & FLAG</span>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#1C1C1C] font-serif-tc">
               {SITE_INFO.title} 官方會旗
             </h2>
-            <p className="text-xs sm:text-sm text-[#1C1C1C]/70 max-w-xl mx-auto">
+            <p className="text-xs sm:text-sm text-[#1C1C1C]/70 max-w-none mx-auto lg:whitespace-nowrap">
               金黃底色象徵大地豐盛與光明，中央藍天圓徽融合聖山玉山、旭日初升、金色月舟與歡喜笑臉。
             </p>
           </div>
@@ -112,4 +112,3 @@ export const FlagPage: React.FC<FlagPageProps> = ({ onNavigate }) => {
     </div>
   );
 };
-
