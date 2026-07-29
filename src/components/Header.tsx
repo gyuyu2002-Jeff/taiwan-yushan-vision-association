@@ -4,7 +4,6 @@ import {
   X,
   Search,
   BookOpen,
-  Compass,
   HeartHandshake,
   Flag,
   Users,
@@ -29,7 +28,6 @@ interface HeaderProps {
 const ICON_MAP: Record<string, React.ReactNode> = {
   Home: <Home className="w-4 h-4" />,
   BookOpen: <BookOpen className="w-4 h-4" />,
-  Compass: <Compass className="w-4 h-4" />,
   HeartHandshake: <HeartHandshake className="w-4 h-4" />,
   Flag: <Flag className="w-4 h-4" />,
   Users: <Users className="w-4 h-4" />,

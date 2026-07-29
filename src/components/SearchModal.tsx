@@ -53,8 +53,8 @@ export const SearchModal: React.FC<SearchModalProps> = ({
     // Search Outlook
     if (OUTLOOK_TEXT.toLowerCase().includes(q) || '本會展望'.includes(q)) {
       results.push({
-        pageId: 'missions',
-        pageTitle: '本會展望',
+        pageId: 'about',
+        pageTitle: '本會簡介',
         title: '本會展望',
         snippet: OUTLOOK_TEXT,
       });

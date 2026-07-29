@@ -5,7 +5,6 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { HomePage } from './components/pages/HomePage';
 import { AboutPage } from './components/pages/AboutPage';
-import { MissionsPage } from './components/pages/MissionsPage';
 import { BeliefsPage } from './components/pages/BeliefsPage';
 import { FlagPage } from './components/pages/FlagPage';
 import { OrganizationPage } from './components/pages/OrganizationPage';
@@ -53,8 +52,6 @@ export default function App() {
         return <HomePage onNavigate={handleNavigate} />;
       case 'about':
         return <AboutPage onNavigate={handleNavigate} />;
-      case 'missions':
-        return <MissionsPage onNavigate={handleNavigate} />;
       case 'beliefs':
         return <BeliefsPage onNavigate={handleNavigate} />;
       case 'flag':

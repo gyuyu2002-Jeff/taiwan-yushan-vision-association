@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { BookOpen } from 'lucide-react';
-import { ABOUT_STORY } from '../../data/content';
+import { BookOpen, Globe } from 'lucide-react';
+import { ABOUT_STORY, OUTLOOK_TEXT } from '../../data/content';
 import { PageId } from '../../types';
 import { NextPageBanner } from '../NextPageBanner';
 
@@ -73,16 +73,33 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
         </div>
       </motion.section>
 
+      {/* Outlook Section */}
+      <motion.section
+        initial={{ opacity: 0, scale: 0.96 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="editorial-card-dark p-8 sm:p-12 space-y-4 shadow-xl"
+      >
+        <div className="flex items-center space-x-3 text-emerald-300">
+          <Globe className="w-6 h-6" />
+          <span className="editorial-badge text-emerald-300">OUTLOOK</span>
+        </div>
+        <h2 className="text-2xl sm:text-3xl font-bold text-white font-serif-tc">本會展望 (Outlook)</h2>
+        <p className="text-base sm:text-xl font-normal text-white/90 leading-relaxed max-w-3xl font-serif-tc">
+          「{OUTLOOK_TEXT}」
+        </p>
+      </motion.section>
+
       {/* Next Page Banner */}
       <NextPageBanner
-        badge="VISION & OUTLOOK"
-        nextPageTitle="本會展望"
-        description="了解本會獨立高瞻之願景與未來展望"
-        buttonLabel="查看本會展望"
-        targetPageId="missions"
+        badge="CORE BELIEFS"
+        nextPageTitle="創會宗旨"
+        description="深入了解四大核心宗旨與六大立會信念。"
+        buttonLabel="查看創會宗旨"
+        targetPageId="beliefs"
         onNavigate={onNavigate}
       />
     </div>
   );
 };
-

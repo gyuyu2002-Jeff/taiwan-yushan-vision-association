@@ -30,12 +30,6 @@ export const MENU_ITEMS: MenuItem[] = [
     iconName: 'BookOpen',
   },
   {
-    id: 'missions',
-    title: '本會展望',
-    urlPath: '/26412263712021921209332872363726395.html',
-    iconName: 'Compass',
-  },
-  {
     id: 'beliefs',
     title: '創會宗旨',
     urlPath: '/26412263712344726088332872044924565.html',
@@ -60,6 +54,12 @@ export function getPageIdFromPath(path: string): MenuItem['id'] {
   const cleanPath = path.trim().toLowerCase();
   if (!cleanPath || cleanPath === '/' || cleanPath.endsWith('/index.html')) {
     return 'home';
+  }
+  if (
+    cleanPath.includes('/26412263712021921209332872363726395.html') ||
+    cleanPath.includes('missions')
+  ) {
+    return 'about';
   }
   const item = MENU_ITEMS.find(
     (m) =>
