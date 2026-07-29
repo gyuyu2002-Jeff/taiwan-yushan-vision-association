@@ -201,7 +201,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: 'g2',
     title: '分會成立與會員交流紀念',
-    imageUrl: 'https://yushantaiwan.weebly.com/uploads/1/2/6/1/126184605/published/timeline-20181120-115206.jpg?1563565425',
+    imageUrl: `${import.meta.env.BASE_URL}gallery_business_exchange.jpg`,
     description: '會員熱烈互動，展現真情互助與同心協力的協會凝聚力。',
     category: '會務交流',
   },
