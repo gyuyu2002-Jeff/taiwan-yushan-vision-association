@@ -1,6 +1,6 @@
 import { MenuItem, PurposeItem, BeliefItem, GalleryItem, OrganizationGroup } from '../types';
 
-export const YUSHAN_HERO_IMAGE = '/yushan_sunset.jpg';
+export const YUSHAN_HERO_IMAGE = `${import.meta.env.BASE_URL}yushan_sunset.jpg`;
 
 export const SITE_INFO = {
   title: '台灣玉山創見會',
@@ -63,8 +63,9 @@ export function getPageIdFromPath(path: string): MenuItem['id'] {
   }
   const item = MENU_ITEMS.find(
     (m) =>
-      cleanPath.includes(m.urlPath.toLowerCase()) ||
-      cleanPath.includes(m.id)
+      m.id !== 'home' &&
+      (cleanPath.includes(m.urlPath.toLowerCase()) ||
+        cleanPath.includes(m.id))
   );
   return item ? item.id : 'home';
 }

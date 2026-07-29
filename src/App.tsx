@@ -39,7 +39,10 @@ export default function App() {
     const menuItem = MENU_ITEMS.find((m) => m.id === pageId);
     if (menuItem) {
       // Sync browser address bar URL with original Weebly path
-      window.history.pushState({}, '', menuItem.urlPath);
+      const targetPath = menuItem.urlPath === '/'
+        ? import.meta.env.BASE_URL
+        : `${import.meta.env.BASE_URL}${menuItem.urlPath.slice(1)}`;
+      window.history.pushState({}, '', targetPath);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -111,4 +114,3 @@ export default function App() {
   </>
 );
 }
-
