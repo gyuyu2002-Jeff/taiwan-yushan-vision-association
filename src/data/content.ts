@@ -13,7 +13,10 @@ export const SITE_INFO = {
   founder: '周朝陽 創會長',
   foundingYear: '2015年',
   slogan: '認同台灣 ‧ 環保生態 ‧ 文創商機 ‧ 文化推廣',
-  description: '以玉山高瞻遠矚與環保生態精神，凝聚公民力量，推動台灣本土文化、綠色永續與文創商機之藍海發展。',
+  description: [
+    '以玉山高瞻遠矚與環保生態精神，凝聚公民力量。',
+    '推動台灣本土文化、綠色永續與文創商機之藍海發展。',
+  ],
 };
 
 export const MENU_ITEMS: MenuItem[] = [

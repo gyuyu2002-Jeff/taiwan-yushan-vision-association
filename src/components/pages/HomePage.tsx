@@ -63,14 +63,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             {SITE_INFO.title}
           </motion.h1>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="text-base sm:text-lg text-white/85 max-w-2xl mx-auto font-normal leading-relaxed"
+            className="text-base sm:text-lg text-white/85 max-w-2xl mx-auto font-normal leading-relaxed space-y-1"
           >
-            {SITE_INFO.description}
-          </motion.p>
+            {SITE_INFO.description.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -176,4 +178,3 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     </div>
   );
 };
-
