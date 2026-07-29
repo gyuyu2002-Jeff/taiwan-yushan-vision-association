@@ -58,7 +58,7 @@ export const AnimatedBackground: React.FC = () => {
       canvas.height = Math.round(height * ratio);
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
 
-      const targetCount = width < 640 ? 45 : 70;
+      const targetCount = width < 640 ? 23 : 35;
       while (fireflies.length < targetCount) fireflies.push(createFirefly());
       if (fireflies.length > targetCount) fireflies.length = targetCount;
     };
@@ -69,7 +69,7 @@ export const AnimatedBackground: React.FC = () => {
       context.clearRect(0, 0, width, height);
 
       fireflies.forEach((firefly) => {
-        const movement = reduceMotion ? 0.08 : 1.25;
+        const movement = reduceMotion ? 0.04 : 0.625;
         if (time >= firefly.nextTurn) {
           firefly.targetAngle = Math.random() * Math.PI * 2;
           firefly.nextTurn = time + 650 + Math.random() * 1850;
